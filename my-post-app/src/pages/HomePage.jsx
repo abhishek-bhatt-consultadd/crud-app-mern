@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios'; // For API calls
-import MedicineForm from '../utils/MedicineForm'; // Import MedicineForm component
+import MedicineForm from '../components/MedicineForm'; // Import MedicineForm component
 import CONSTANTS from '../constant';
 import Snackbar from '../utils/Snackbar';
+import { AuthContext } from '../providers/AuthContext';
+import '../css/homepage.css'; 
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const [medicines, setMedicines] = useState([]);
@@ -11,6 +14,8 @@ const HomePage = () => {
   const [selectedMedicine, setSelectedMedicine] = useState(null); // For editing
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,8 +24,7 @@ const HomePage = () => {
       try {
         const response = await axios.get(CONSTANTS.BASE_URl +  CONSTANTS.GET); // Replace with your API endpoint
         setMedicines(response.data);
-        setSnackbarMessage('Medicine created successfully!'); // Set snackbar message
-        setShowSnackbar(true);
+
       } catch (error) {
         setError(error.message || 'An error occurred while fetching medicines');
       } finally {
@@ -43,6 +47,14 @@ const HomePage = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleViewDetails = (medicine) => {
+    const details = `
+      ID: ${medicine.id}
+      Title: ${medicine.title}
+      Company: ${medicine.company}  `;
+      alert(details);
   };
 
   const handleUpdateMedicine = async (updatedMedicine) => {
@@ -83,28 +95,42 @@ const HomePage = () => {
     setSelectedMedicine(medicine);
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/signin');
+  }
+
   return (
-    <div>
-      <h1>Welcome to the Medicine Database!</h1>
-      {isLoading && <p>Loading medicines...</p>}
-      {error && <p className="error-message">{error}</p>}
-      {medicines.length > 0 && (
-        <ul>
-          {medicines.map((medicine) => (
-            <li key={medicine.id}>
-              {medicine.title}
-              <button onClick={() => handleSelectMedicine(medicine)}>Edit</button>
-              <button onClick={() => handleDeleteMedicine(medicine.id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      )}
-      {medicines.length === 0 && !isLoading && <p>No medicines found.</p>}
-      <MedicineForm
-        initialMedicine={selectedMedicine}
-        onSubmit={selectedMedicine ? handleUpdateMedicine : handleCreateMedicine}
-      />
+    <div className="home-page">
+      <div className="home-page-content">
+        <h1>Welcome to the Medicine Database!</h1>
+        {isLoading && <p>Loading medicines...</p>}
+        {error && <p className="error-message">{error}</p>}
+        {medicines.length > 0 && (
+          <ul className="medicine-list">
+            {medicines.map((medicine) => (
+              <li key={medicine.id} className="medicine-item">
+                <span>{medicine.title}</span>
+                <div className="medicine-actions">
+                <button
+  onClick={() => handleSelectMedicine(medicine)}
+  disabled={!localStorage.getItem('isAdmin')}
+>Edit</button>
+                  <button onClick={() => handleDeleteMedicine(medicine.id)} disabled={!localStorage.getItem('isAdmin')}>Delete</button>
+                  <button onClick={() => handleViewDetails(medicine)}>View Details</button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+        {medicines.length === 0 && !isLoading && <p>No medicines found.</p>}
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
+        {localStorage.getItem('isAdmin') && <MedicineForm
+          initialMedicine={selectedMedicine}
+          onSubmit={selectedMedicine ? handleUpdateMedicine : handleCreateMedicine}
+        /> }
         {showSnackbar && <Snackbar message={snackbarMessage} variant="success" />}
+      </div>
     </div>
   );
 };

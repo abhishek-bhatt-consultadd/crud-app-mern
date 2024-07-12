@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp'; 
-import ProtectedRoute from './components/ProtectedRoute';
-import HomePage from './components/HomePage';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp'; 
+import ProtectedRoute from './pages/ProtectedRoute';
+import HomePage from './pages/HomePage';
+import { AuthProvider } from './providers/AuthContext';
 // import Home from './components/Home'; // Public component
 // import Dashboard from './components/Dashboard'; // Protected component
 // import Profile from './components/Profile'; // Another protected component
@@ -11,11 +12,18 @@ import HomePage from './components/HomePage';
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<SignIn />} />
+     <AuthProvider>
+      <Routes>  
+        <Route path="/" element={<HomePage />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} /> 
-        <Route path="/home" element={<HomePage />} /> 
+        <Route path="/home" element={  
+        <ProtectedRoute>
+          <HomePage />
+        </ProtectedRoute>  
+        } /> 
+
+         
         {/* <Route
           path="/dashboard"
           element={
@@ -34,6 +42,7 @@ const App = () => {
         />
         ... other routes (public or protected) */}
       </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 };

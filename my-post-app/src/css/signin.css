@@ -1,0 +1,54 @@
+.signin-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    height: 100%;
+  }
+  
+  .signin-form {
+    padding: 20px;
+    border-radius: 5px;
+    /* background-color: #fff; White form background */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .signin-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .signin-input {
+    width: 100%;
+    padding: 10px;
+    /* border: 1px solid #ccc; Light gray border */
+    border-radius: 3px; /* Rounded corners */
+  }
+  
+  .signin-button {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+  }
+  
+  .signin-button:hover {
+    /* background-color: #2980b9; Darker blue on hover */
+  }
+  
+  .forgot-password-link {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+    /* color: #3498db; Same blue as button */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .forgot-password-link:hover {
+    color: #2980b9; /* Darker blue on hover */
+  }
+  
+  
+  

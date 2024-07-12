@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import CONSTANTS from '../constant';
 import { useNavigate } from 'react-router-dom';
-
+import '../css/signup.css'
 
 
 const Signup = ({ onSignUp }) => {
@@ -31,26 +31,24 @@ const Signup = ({ onSignUp }) => {
     };
 
     return (
-        <>
-        <div>
-            <h2>Sign Up</h2>
-            <form onSubmit={handleSignUp}>
-                <label>
-                    Email:
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                </label>
-                <label>
-                    Username:
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                </label>
-                <button type="submit">Sign Up</button>
-            </form>
-        </div>
-        </>
+        <div className="signup-form">
+  <h2>Sign Up</h2>
+  <form onSubmit={handleSignUp}>
+    <label htmlFor="email">
+      Email:
+      <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+    </label>
+    <label htmlFor="password">
+      Password:
+      <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+    </label>
+    <label htmlFor="username">
+      Username:
+      <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+    </label>
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
     );
 };
 

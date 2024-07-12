@@ -1,0 +1,31 @@
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center elements horizontally */
+    margin: 0 auto; /* Center form horizontally */
+    width: fit-content; /* Adjust width as needed */
+    padding: 20px; /* Add some padding */
+    border-radius: 5px; /* Optional rounded corners */
+  }
+  
+  .signup-form h2 {
+    margin-bottom: 20px; /* Add space after heading */
+  }
+  
+  .signup-form label {
+    display: block; /* Make labels block-level for spacing */
+    margin-bottom: 10px; /* Add space between labels */
+  }
+  
+  .signup-form input {
+    width: 100%; /* Set input width to full width */
+    padding: 10px; /* Add padding to inputs */
+    border-radius: 3px; /* Add rounded corners to inputs */
+  }
+  
+  .signup-form button {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+  }
+  

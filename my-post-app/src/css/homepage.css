@@ -1,0 +1,38 @@
+.home-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .home-page-content {
+    max-width: 800px;
+    padding: 20px;
+  }
+  
+  .medicine-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .medicine-list li button {
+    margin: 0 5px; /* Add some margin for buttons within the list item */
+  }
+
+  .logout-button {
+    /* Style the button here */
+    position: absolute; /* Make it absolute for top right positioning */
+    top: 10px; /* Set top position */
+    right: 10px; /* Set right position */
+    padding: 5px 10px; /* Add some padding */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Indicate clickable behavior */
+  }
+
+  .medicine-actions{
+    padding: 5px 10px; 
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Indicate clickable behavior */
+  }
