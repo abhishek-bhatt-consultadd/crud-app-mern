@@ -1,61 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp'; 
+import ProtectedRoute from './components/ProtectedRoute';
+import HomePage from './components/HomePage';
+// import Home from './components/Home'; // Public component
+// import Dashboard from './components/Dashboard'; // Protected component
+// import Profile from './components/Profile'; // Another protected component
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  const API_URL = 'http://localhost:your-backend-port';  // Adjust port as needed
-
-// Set up axios with base URL and potentially custom headers if necessary
-axios.defaults.baseURL = API_URL;
-
-const router = createBrowserRouter({
-  children: [
-    {
-      path: '/',
-      element: <PrivateRoute isAuthenticated={isAuthenticated}><PostList /></PrivateRoute>,
-    },
-    {
-      path: '/create',
-      element: <PrivateRoute isAuthenticated={isAuthenticated}><PostForm /></PrivateRoute>,
-    },
-    {
-      path: '/edit/:postId',
-      element: (
-        <PrivateRoute isAuthenticated={isAuthenticated}>
-          <PostForm editMode={true} />
-        </PrivateRoute>
-      ),
-    },
-    { path: '/signin', element: <SignIn onLogin={handleLogin} /> },
-    { path: '/signup', element: <SignUp /> }, // Implement SignUp component
-  ],
-});
-
-const isAuthenticated = () => {
-  const token = localStorage.getItem('jwtToken');
-  if (token) {
-    try {
-      jwtDecode(token, process.env.REACT_APP_JWT_SECRET); // Replace with your secret
-      return true;
-    } catch (error) {
-      localStorage.removeItem('jwtToken');
-      return false;
-    }
-  }
-  return false;
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} /> 
+        <Route path="/home" element={<HomePage />} /> 
+        {/* <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        ... other routes (public or protected) */}
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
-const handleLogin = (data) => {
-  localStorage.setItem('jwtToken', data.token);
-  // Optionally, set axios headers with the JWT token for authorized requests
-};
-
-root.render(
-  <RouterProvider router={router} />
-);
-}
-
-export default App
+export default App;
