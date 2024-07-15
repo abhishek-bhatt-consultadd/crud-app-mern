@@ -16,6 +16,7 @@
     "jsonwebtoken": "^9.0.2",
     "react": "^18.3.1",
     "react-bootstrap": "^2.9.0-beta.1",
+    "react-docgen": "^7.0.3",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.1",
     "yup": "^1.4.0"

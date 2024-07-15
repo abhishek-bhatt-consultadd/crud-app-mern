@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // For API calls
+import '../css/form.css'
 
 const MedicineForm = ({ initialMedicine = null, onSubmit }) => {
   const [title, setTitle] = useState(initialMedicine ? initialMedicine.title : '');

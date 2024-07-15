@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/signin" replace />; // Redirect to login on failure
   }
 
-  return children
+  return <Outlet /> 
 };
 
 export default ProtectedRoute;
