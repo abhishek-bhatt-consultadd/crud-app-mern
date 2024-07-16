@@ -2,7 +2,6 @@ import {
     Route,
     createBrowserRouter,
     createRoutesFromElements,
-    RouterProvider
   } from "react-router-dom";
   import ProtectedRoute from "../pages/ProtectedRoute";
   import HomePage from "../pages/HomePage";

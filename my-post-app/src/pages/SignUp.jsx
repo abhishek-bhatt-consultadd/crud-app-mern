@@ -20,6 +20,7 @@ const Signup = ({ onSignUp }) => {
             const response = await axios.post(CONSTANTS.BASE_URl + CONSTANTS.SIGN_UP, { username, password, role, email });
            if(response.status == 200){
             // navigate to signin
+            alert("User created succesfully : " + username);
             navigate('/signin');
            }else{
             console.log(response.data);

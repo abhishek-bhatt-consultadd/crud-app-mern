@@ -36,7 +36,8 @@ const AuthProvider = ({ children }) => {
 
   const extractTokenFromResponse = (responseData) => {
     if (responseData.token) {
-      return responseData.token.split('=')[1];
+      let token =  responseData.token.split('=')[1];
+      return token.split(';')[0];
     } else {
       throw new Error('Invalid token format in response');
     }

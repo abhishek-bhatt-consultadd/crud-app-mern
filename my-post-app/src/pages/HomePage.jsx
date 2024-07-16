@@ -17,12 +17,16 @@ const HomePage = () => {
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const headers = {
+    'Content-Type': 'application/json', 
+    'Authorization': `Bearer ${localStorage.getItem('auth_token')}`, 
+  };
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get(CONSTANTS.BASE_URl +  CONSTANTS.GET); // Replace with your API endpoint
+        const response = await axios.get(CONSTANTS.BASE_URl +  CONSTANTS.GET, {headers}); // Replace with your API endpoint
         setMedicines(response.data);
 
       } catch (error) {
@@ -38,7 +42,7 @@ const HomePage = () => {
   const handleCreateMedicine = async (newMedicine) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(CONSTANTS.BASE_URl +  CONSTANTS.CREATE, newMedicine); // Replace with API endpoint
+      const response = await axios.post(CONSTANTS.BASE_URl +  CONSTANTS.CREATE, newMedicine, {headers}); // Replace with API endpoint
       setMedicines([...medicines, response.data]); // Add new medicine to state
       setSelectedMedicine(null); // Clear selected medicine after creation
     } catch (error) {
@@ -60,7 +64,7 @@ const HomePage = () => {
   const handleUpdateMedicine = async (updatedMedicine) => {
     setIsLoading(true);
     try {
-      const response = await axios.put(CONSTANTS.BASE_URl +  CONSTANTS.UPDATE + '/' + selectedMedicine.id, updatedMedicine); // Replace with API endpoint
+      const response = await axios.put(CONSTANTS.BASE_URl +  CONSTANTS.UPDATE + '/' + selectedMedicine.id, updatedMedicine, {headers}); // Replace with API endpoint
       const updatedMedicines = medicines.map((medicine) =>
         medicine.id === selectedMedicine.id ? response.data : medicine
       );
@@ -70,7 +74,7 @@ const HomePage = () => {
       setShowSnackbar(true);
     } catch (error) {
       console.error('Error updating medicine:', error);
-      setError('An error occurred while updating medicine'); // Set user-friendly error
+      setError('An error occurred while updating medicine'); 
     } finally {
       setIsLoading(false);
     }
@@ -79,13 +83,13 @@ const HomePage = () => {
   const handleDeleteMedicine = async (medicineId) => {
     setIsLoading(true);
     try {
-      await axios.delete(CONSTANTS.BASE_URl +  CONSTANTS.DELETE + '/' + medicineId); // Replace with API endpoint
+      await axios.delete(CONSTANTS.BASE_URl +  CONSTANTS.DELETE + '/' + medicineId, {headers}); 
       setMedicines((prevMedicines) => prevMedicines.filter((medicine) => medicine.id !== medicineId));
       setSnackbarMessage('Medicine deleted successfully!'); // Set snackbar message
       setShowSnackbar(true);
     } catch (error) {
       console.error('Error deleting medicine:', error);
-      setError('An error occurred while deleting medicine'); // Set user-friendly error
+      setError('An error occurred while deleting medicine'); 
     } finally {
       setIsLoading(false);
     }
